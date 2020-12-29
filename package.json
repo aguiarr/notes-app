@@ -1,0 +1,32 @@
+{
+  "name": "notes",
+  "version": "1.0.0",
+  "description": "A Note app made with ElectronJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aguiarr/notes-app.git"
+  },
+  "keywords": [
+    "electron",
+    "notes",
+    "app"
+  ],
+  "author": "Matheus Aguiar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aguiarr/notes-app/issues"
+  },
+  "homepage": "https://github.com/aguiarr/notes-app#readme",
+  "dependencies": {
+    "electron": "^11.1.1",
+    "express": "^4.17.1",
+    "jquery": "^3.5.1",
+    "moment": "^2.29.1",
+    "mysql": "^2.18.1"
+  }
+}
