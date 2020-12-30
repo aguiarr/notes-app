@@ -2,8 +2,8 @@ const { app, BrowserWindow } = require('electron')
 
 function createWindow () {
   const win = new BrowserWindow({
-    width: 600,
-    height: 450,
+    width: 800,
+    height: 500,
     // icon: "src/img/icon.png"
     webPreferences: {
       nodeIntegration: true
@@ -12,7 +12,7 @@ function createWindow () {
 
 //   win.setResizable(false);
 //   win.removeMenu();
-  win.loadFile('src/index.html');
+  win.loadFile('src/views/index.html');
 }
 app.whenReady().then(createWindow)
 
