@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="resources/css/style.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <title>Notes</title>
 </head>
 <body>
@@ -12,22 +12,23 @@
             <div class="side-notes">
                 <h2 class="title">Notes</h2>
                 <ul class="note-list">
-                    <div class="notes"><li>Add New +</li></div>
-                    <div class="notes"><li>Note 1</li></div>
-                    <div class="notes"><li>Note 2</li></div>
-                    <div class="notes"><li>Note 3</li></div>
+                   <li class="add-note" id="new">Add New +</li>
                 </ul>
             </div>
         </div>
         <div class="side-textearea">
             <div class="text-menu-div">
-                <ul class="text-menu">
-                    <li class="item-menu"><img class="icon-menu" src="resources/img/trash.png" alt="remove"></li>
-                    <li class="item-menu"></li>
-                </ul>
+                <input class="input-title" type="text" value="Title" name="titleNote" id="titleNote">
+                <div class="item-menu">
+                    <span id="removeNote"><img class="icon-menu" src="./assets/img/trash.png" alt="remove"></span>
+                </div>
+            </div>
+            <div class="input-text">
+                <textarea name="noteBody" id="noteBody"></textarea>
             </div>
         </div>
     </div>
 </body>
-<script src="resources/js/main.js"></script>
+<script src="./assets/js/main.js"></script>
+<script src="./assets/js/jquery-3.5.1.min.js"></script>
 </html>
