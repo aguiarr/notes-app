@@ -12,6 +12,11 @@ module.exports = app => {
         Notes.findBy(id, res);
     });
 
+    app.get('/last-note/', (req, res) => {
+        
+        Notes.findLast(res);
+    })
+
     app.post('/notes', (req, res) => {
         const note = req.body;
 

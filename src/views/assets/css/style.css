@@ -21,6 +21,7 @@ body{
     height: 100%;
 }
 .note-list{
+    margin-top: -5px;
     margin-left: -40px;
     border-top:solid;
     border-color: #d9d9d9;
@@ -34,7 +35,6 @@ body{
 
 .note-li{
     background-color: white;
-    padding-top: 5px;
     position:relative;
     border-bottom:solid;
     border-color: #d9d9d9;
@@ -46,18 +46,22 @@ body{
     padding-left: 10px;
 }
 
+.add-note:hover{
+    cursor: pointer;
+    background-color: #d9d9d9;
+}
 .add-note{
     background-color: white;
-    padding-top: 5px;
     position:relative;
+    border-top:solid;
     border-bottom:solid;
     border-color: #d9d9d9;
     border-width: .5px;
     width: 190px;
     height: 35px;
-    padding-top: 10px;
-    list-style: none;
+    padding-top: 12px;
     padding-left: 10px;
+    margin-top: 16px;
 }
 .side-textearea{
     margin-left: 200px;
@@ -126,8 +130,13 @@ body{
     background-color: #d9d9d9;
 }
 
-/* @media only screen and (max-width: 600px) {
-    body {
-      background-color: lightblue;
+@media only screen and (min-width: 850px) {
+
+    .item-menu{
+        margin-top: 18px;
     }
-  } */
+
+    .input-title{
+        width: 820px;
+    }
+} 

@@ -1,10 +1,12 @@
 const $noteBody = document.getElementById('noteBody');
 const $titleNote = document.getElementById('titleNote');
-const $removeList = document.getElementById('removeNote');
-const $addNote = document.getElementById('new');
 
-const $noteList = document.querySelector('.note-list');
+const $removeList = document.getElementById('removeNote');
+
 const $noteLi = document.querySelector('.note-li');
+const $notes = document.querySelector('.side-notes');
+
+var $noteList;
 var selectedNoteId;
 var lastNote;
 
@@ -12,28 +14,19 @@ var lastNote;
 window.addEventListener("load", getNotes);
 
 window.addEventListener("click", (envent) => {
-    let li = envent.target;
-    if (li.id == 'new') {
-        $titleNote.value = 'Title';
-        $noteBody.value = '';
-        lastNote = li;
-    } else {
-        if (li.getAttribute('class') == 'note-li') {
-            li.getAttribute('class')
-            selectedNoteId = li.id;
-            getNoteById(li.id);
+    selectedItem(envent.target);
+});
+window.addEventListener("resize", () => {
 
-            if (lastNote) {
-                lastNote.className = "note-li";
-            }
+    var width = $(document).width();
+    var heigth = $(document).height();
+    if($(window).width() > 800){
+        $noteBody.style.width = (width - 220) + 'px';
+        $noteBody.style.height = (heigth - 70)+ 'px'
 
-            li.className = "selected-list"
-            lastNote = li;
-        }
+        
     }
 });
-
-$addNote.addEventListener("click", addNote);
 
 
 var i;
@@ -48,25 +41,54 @@ $noteBody.addEventListener("keydown", () => {
 setInterval(() => {
     if (i == 1) updateNote(selectedNoteId);
     i++;
-}, 1000);
+}, 500);
 
 $removeList.addEventListener("click", () => {
+    $noteList = document.querySelector('.note-list');
     let a = confirm("Atencion! Do really you wnat to delete this note?");
     if (a == true) {
-        console.log(selectedNoteId)
-        console.log(lastNote)
+
         deleteNote(selectedNoteId);
         $noteList.removeChild(lastNote);
+
+        $titleNote.value = '';
+        $noteBody.value = '';
     } else {
         getNoteById(selectedNoteId);
         return;
     }
 });
 
+function selectedItem(element){
+    if (element.id == 'new') {
+
+        $noteList = document.querySelector('.note-list');
+        if($noteList) $notes.removeChild($noteList);
+        
+        addNote();
+    } else {
+        if (element.getAttribute('class') == 'note-li') {
+            element.getAttribute('class')
+            selectedNoteId = element.id;
+            getNoteById(element.id);
+
+            if (lastNote) {
+                lastNote.className = "note-li";
+            }
+
+            element.className = "selected-list"
+            lastNote = element;
+        }
+    }
+}
+
 function getNotes() {
     (function ($) {
-        $.get("http://localhost:3000/notes", function (data, status) {
+        var noteUl = document.createElement("UL");
+        noteUl.className = "note-list";
 
+        var notes = [];
+        $.get("http://localhost:3000/notes", function (data, status) {
             data.forEach(value => {
                 var noteLi = document.createElement("LI");
                 var textnode = document.createTextNode(value.title);
@@ -75,8 +97,12 @@ function getNotes() {
                 noteLi.className = "note-li";
                 noteLi.setAttribute("id", value.id);
 
-                $noteList.appendChild(noteLi);
+                noteUl.appendChild(noteLi);
+                $notes.appendChild(noteUl);
+                notes.push(noteLi);
             });
+
+            if(notes.length > 0) selectedItem(notes[0])
 
             $titleNote.value = '';
             $noteBody.value = '';
@@ -89,7 +115,6 @@ function getNoteById(id) {
 
     (function ($) {
         $.get("http://localhost:3000/notes/" + id, function (data, status) {
-            console.log(data);
 
             $titleNote.value = data.title;
             $noteBody.value = data.note;
@@ -100,27 +125,14 @@ function getNoteById(id) {
 
 function addNote() {
 
-    var noteLi = document.createElement("LI");
-    var textnode = document.createTextNode('Title');
-
-    lastNote.className = "note-li"
-
-    noteLi.appendChild(textnode);
-    $noteList.appendChild(noteLi);
-
-    noteLi.className = "selected-list";
-    lastNote = noteLi;
-
     (function ($) {
 
         $.post("http://localhost:3000/notes/", { title: 'Title', note: '' });
 
-        $.get("http://localhost:3000/notes", (data, status) => {
-            noteLi.setAttribute("id", data[0].id);
-            selectedNoteId = data[0].id;
-        });
-
     })(jQuery);
+
+    getNotes();
+
 }
 
 function deleteNote(id) {
@@ -129,7 +141,6 @@ function deleteNote(id) {
             url: "http://localhost:3000/notes/" + id,
             type: 'DELETE',
             success: function (data) {
-                console.log("id deletado: " + id);
                 if (data.id == id) {
                     return true;
                 } else {
