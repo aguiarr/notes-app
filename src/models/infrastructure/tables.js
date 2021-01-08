@@ -6,9 +6,9 @@ class Tables{
     }
     createNotes(){
 
-        const sql = 'CREATE TABLE IF NOT EXISTS notes ( id INT NOT NULL AUTO_INCREMENT, title VARCHAR(100) NOT NULL, note TEXT NOT NULL, PRIMARY KEY(id));';
+        const sql = 'CREATE TABLE IF NOT EXISTS notes ( id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, note TEXT NOT NULL)';
         
-        this.connection.query(sql, (erro) => {
+        this.connection.run(sql, (erro) => {
             if(erro){
                 console.log(erro);
             }

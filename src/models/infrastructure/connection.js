@@ -1,11 +1,10 @@
-const mysql = require('mysql');
+const sqlite = require('sqlite3').verbose();
 
-const connection = mysql.createConnection({
-    host: '127.0.0.1',
-    port: '3306',
-    user: 'root',
-    password: '',
-    database: 'notes_app'
+const connection = new sqlite.Database('./src/models/infrastructure/database/database.db', (erro) => {
+    if(erro){
+        return console.error(erro.message);
+    }
+    console.log("conectado");
 });
 
 module.exports = connection;

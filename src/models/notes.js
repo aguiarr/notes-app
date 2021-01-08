@@ -4,9 +4,10 @@ class Notes {
     
     add(note, res){
 
-        const sql = 'INSERT INTO notes SET ?';
+        const sql = 'INSERT INTO notes (title, note) VALUES (?,?)';
+        const params = [note.title, note.note];
 
-        connection.query(sql, note, (erro, result) => {
+        connection.run(sql, params, (erro, result) => {
             if(erro){
                 res.status(400).json(erro);
             }else{
@@ -19,7 +20,7 @@ class Notes {
 
         const sql = 'SELECT * FROM notes ORDER BY id DESC';
 
-        connection.query(sql, (erro, result) => {
+        connection.all(sql, (erro, result) => {
             if(erro){
                 res.status(400).json(erro);
             }else{
@@ -29,29 +30,27 @@ class Notes {
     }
 
     findBy(id, res){
-        const sql = `SELECT * FROM notes WHERE id=${id}`;
-
-        connection.query(sql, (erro,result) => {
-            const note = result[0];
+        const sql = `SELECT * FROM notes WHERE id=?`;
+        connection.get(sql, id, (erro,result) => {
             
             if(erro){
                 res.status(400).json(erro);
             }else{
-                res.status(200).json(note);
+                res.status(200).json(result);
             }
         });
     }
 
     edit(id, values,res){
 
-        const sql = 'UPDATE notes SET ? WHERE id=?';
-
-        connection.query(sql, [values,id], (erro, result) => {
+        const sql = 'UPDATE notes SET title = COALESCE(?, title),note = COALESCE(?, note) WHERE id=?';
+        const params = [values.title, values.note, id];
+        connection.run(sql, params, (erro, result) => {
 
             if(erro){
                 res.status(400).json(erro);
             }else{
-                res.status(200).json({...values, id});
+                res.status(200).json({...values});
             }
         });
     }
@@ -60,7 +59,7 @@ class Notes {
 
         const sql = 'DELETE FROM notes WHERE id=?';
 
-        connection.query(sql, id, (erro, result) => {
+        connection.run(sql, id, (erro, result) => {
 
             if(erro){
                 res.status(400).json(erro);

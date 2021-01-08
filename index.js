@@ -15,7 +15,7 @@ function createWindow () {
   });
 
   win.setResizable(false);
-  win.removeMenu();
+  //win.removeMenu();
   win.loadFile('./src/views/index.html');
 }
 app.whenReady().then(createWindow)
@@ -32,15 +32,6 @@ app.on('activate', () => {
   }
 })
 
-connection.connect( erro => {
-
-    if(erro){
-        console.log(erro);
-    }else{
-        console.log('connetion');
-        
-        Tables.init(connection);
-        const aplication = configExpress();
-        aplication.listen(3000, () => console.log('Server on port 3000'));
-    }
-});
+Tables.init(connection);
+const aplication = configExpress();
+aplication.listen(4000, () => console.log('Server on port 4000'));
