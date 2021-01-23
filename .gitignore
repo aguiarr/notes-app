@@ -1,6 +1,3 @@
-#database
-/src/models/infrastructure/database/database.db
-
 # Logs
 logs
 *.log
