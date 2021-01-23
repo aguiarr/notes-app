@@ -88,7 +88,7 @@ function getNotes() {
         noteUl.className = "note-list";
 
         var notes = [];
-        $.get("http://localhost:4000/notes", function (data, status) {
+        $.get("http://localhost:3000/notes", function (data, status) {
             data.forEach(value => {
                 var noteLi = document.createElement("LI");
                 var textnode = document.createTextNode(value.title);
@@ -114,7 +114,7 @@ function getNotes() {
 function getNoteById(id) {
 
     (function ($) {
-        $.get("http://localhost:4000/notes/" + id, function (data, status) {
+        $.get("http://localhost:3000/notes/" + id, function (data, status) {
 
             $titleNote.value = data.title;
             $noteBody.value = data.note;
@@ -127,7 +127,7 @@ function addNote() {
 
     (function ($) {
 
-        $.post("http://localhost:4000/notes/", { title: 'Title', note: '' });
+        $.post("http://localhost:3000/notes/", { title: 'Title', note: '' });
 
     })(jQuery);
 
@@ -138,7 +138,7 @@ function addNote() {
 function deleteNote(id) {
     (function ($) {
         $.ajax({
-            url: "http://localhost:4000/notes/" + id,
+            url: "http://localhost:3000/notes/" + id,
             type: 'DELETE',
             success: function (data) {
                 if (data.id == id) {
@@ -155,12 +155,12 @@ function updateNote(id) {
     (function ($) {
         data = { title: $titleNote.value, note: $noteBody.value };
         $.ajax({
-            url: "http://localhost:4000/notes/" + id,
+            url: "http://localhost:3000/notes/" + id,
             type: 'PATCH',
             data: data
         });
 
-        $.get("http://localhost:4000/notes/" + id, (data, status) => {
+        $.get("http://localhost:3000/notes/" + id, (data, status) => {
 
             $titleNote.innerHTML = data.title;
             $noteBody.innerHTML = data.note;

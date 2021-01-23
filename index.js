@@ -1,7 +1,4 @@
 const { app, BrowserWindow } = require('electron');
-const configExpress = require('./config/express');
-const connection = require('./src/models/infrastructure/connection');
-const Tables = require('./src/models/infrastructure/tables');
 
 function createWindow () {
   const win = new BrowserWindow({
@@ -15,8 +12,8 @@ function createWindow () {
   });
 
   win.setResizable(false);
-  //win.removeMenu();
-  win.loadFile('./src/views/index.html');
+  win.removeMenu();
+  win.loadFile('./src/index.html');
 }
 app.whenReady().then(createWindow)
 
@@ -31,7 +28,3 @@ app.on('activate', () => {
     createWindow()
   }
 })
-
-Tables.init(connection);
-const aplication = configExpress();
-aplication.listen(4000, () => console.log('Server on port 4000'));
