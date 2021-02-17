@@ -12,4 +12,5 @@ This is an app made with Node Js using Electron to create, edit and delete notes
 
 ### Observation
 
-To run the app it is necessary to have this API running: https://github.com/aguiarr/notes-app-api<br/>
+To run the app it is necessary to have this API running.
+(On port 3000 or change the main.js file in './src/js/main.js')<br/>
